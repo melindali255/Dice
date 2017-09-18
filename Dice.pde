@@ -1,7 +1,9 @@
+int total = 0;
 void setup()
 {
   background(0);
   size(300, 300);
+  textAlign(CENTER);
   noLoop();
 }
 void draw()
@@ -13,11 +15,16 @@ void draw()
       Die square = new Die (x + 40, y + 20);
       square.roll();
       square.show();
+      total += square.number;
     }
   }
+  //display total
+  stroke(0);
+  text("Total: " + total, 150, 200);
 }
 void mousePressed()
 {
+  total = 0;
   redraw();
 }
 class Die //models one single dice cube
