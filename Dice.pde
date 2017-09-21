@@ -1,7 +1,7 @@
 int total = 0;
 void setup()
 {
-  background(0);
+  background(119, 161, 227);
   size(300, 300);
   textAlign(CENTER);
   noLoop();
@@ -18,6 +18,7 @@ void draw()
       total += square.number;
     }
   }
+
   //display total
   stroke(0);
   text("Total: " + total, 150, 200);
@@ -32,21 +33,28 @@ class Die //models one single dice cube
   int myX;
   int myY;
   int number;
+  int sideLength;
   Die(int x, int y)
   {
     myX = x;
     myY = y;
+    sideLength = 12;
   }
   void roll() //add to show?
   {
-    number = (int)(Math.random()*6 + 1);
+      number = (int)(Math.random()*6 + 1);
+  }
+  void checkForClick() {
+    if (mouseX >= myX && mouseX <= myX + sideLength && mouseY >= myY && mouseY <= myY + sideLength && mousePressed == true) {
+      roll();
+    }
   }
   void show()
   {
     //show the die
     fill(255);
     noStroke();
-    rect(myX, myY, 65, 65, 18, 18, 18, 18);
+    rect(myX, myY, 65, 65, sideLength, sideLength, sideLength, sideLength);
     //die face -- change to switch?
     fill(0);
     //show appropiate number of dots
