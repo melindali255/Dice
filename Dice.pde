@@ -1,4 +1,5 @@
 int total = 0;
+boolean rolled = false;
 void setup()
 {
   background(119, 161, 227);
@@ -13,7 +14,11 @@ void draw()
   for (int y = 0; y < 2*75; y+=75) {
     for (int x = 0; x < 3*75; x+=75) {
       Die square = new Die (x + 40, y + 20);
-      square.roll();
+      if (rolled == false) {
+        square.roll();
+        rolled = true;
+      }
+      square.checkForClick();
       square.show();
       total += square.number;
     }
@@ -47,6 +52,7 @@ class Die //models one single dice cube
   void checkForClick() {
     if (mouseX >= myX && mouseX <= myX + sideLength && mouseY >= myY && mouseY <= myY + sideLength && mousePressed == true) {
       roll();
+      System.out.println(number);
     }
   }
   void show()
