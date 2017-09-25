@@ -1,5 +1,6 @@
 int total = 0;
 boolean rolled = false;
+int numRolled = 1;
 void setup()
 {
   background(119, 161, 227);
@@ -14,9 +15,9 @@ void draw()
   for (int y = 0; y < 2*75; y+=75) {
     for (int x = 0; x < 3*75; x+=75) {
       Die square = new Die (x + 40, y + 20);
-      if (rolled == false) {
+      if (rolled == false && numRolled <= 6) {
         square.roll();
-        rolled = true;
+        numRolled += 1;
       }
       square.checkForClick();
       square.show();
@@ -39,28 +40,29 @@ class Die //models one single dice cube
   int myY;
   int number;
   int sideLength;
+  
   Die(int x, int y)
   {
     myX = x;
     myY = y;
-    sideLength = 12;
+    sideLength = 65;
   }
   void roll() //add to show?
   {
-      number = (int)(Math.random()*6 + 1);
+    number = (int)(Math.random()*6 + 1);
   }
   void checkForClick() {
     if (mouseX >= myX && mouseX <= myX + sideLength && mouseY >= myY && mouseY <= myY + sideLength && mousePressed == true) {
       roll();
-      System.out.println(number);
     }
+    System.out.println(number);
   }
   void show()
   {
     //show the die
-    fill(255);
+    fill(255, 255, 255);
     noStroke();
-    rect(myX, myY, 65, 65, sideLength, sideLength, sideLength, sideLength);
+    rect(myX, myY, sideLength, sideLength, 12, 12, 12, 12);
     //die face -- change to switch?
     fill(0);
     //show appropiate number of dots
