@@ -1,6 +1,7 @@
 int total = 0;
 boolean rolled = false;
 int numRolled = 1;
+int opacity = 255;
 void setup()
 {
   background(119, 161, 227);
@@ -10,7 +11,7 @@ void setup()
 }
 void draw()
 {
-  background(119, 161, 227);
+  //background(119, 161, 227);
   //make 2 rows of 3 die
   for (int y = 0; y < 2*75; y+=75) {
     for (int x = 0; x < 3*75; x+=75) {
@@ -25,7 +26,12 @@ void draw()
     }
   }
 
-  //display total
+  //box to layer over totals
+  noStroke();
+  fill(119, 161, 227);
+  rect(100, 175, 100, 50);
+  //total text
+  fill(0);
   stroke(0);
   text("Total: " + total, 150, 200);
 }
@@ -54,13 +60,17 @@ class Die //models one single dice cube
   void checkForClick() {
     if (mouseX >= myX && mouseX <= myX + sideLength && mouseY >= myY && mouseY <= myY + sideLength && mousePressed == true) {
       roll();
+      opacity = 255;
     }
-    System.out.println(number);
+    else if (numRolled > 6)
+    {
+      opacity = 0;
+    }
   }
   void show()
   {
     //show the die
-    fill(255, 255, 255);
+    fill(255, 255, 255, opacity);
     noStroke();
     rect(myX, myY, sideLength, sideLength, 12, 12, 12, 12);
     //die face -- change to switch?
